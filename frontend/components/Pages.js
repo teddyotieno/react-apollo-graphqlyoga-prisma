@@ -29,7 +29,7 @@ const GlobalStyle = createGlobalStyle`
   }
   a {
     text-decoration: none;
-    color: ${theme.black} 
+    color: ${theme.black};
     font-family: sans-serif;
   }
 `;
