@@ -19,20 +19,21 @@ const SINGLE_ITEM_QUERY = gql`
 
 const UPDATE_ITEM_MUTATION = gql`
   mutation UPDATE_ITEM_MUTATION(
-    $title: String!
-    $description: String!
-    $price: Int!
-    $image: String
-    $largeImage: String
+    $id: ID!
+    $title: String
+    $description: String
+    $price: Int
   ) {
-    createItem(
+    updateItem(
+      id: $id
       title: $title
       description: $description
       price: $price
-      image: $image
-      largeImage: $largeImage
     ) {
       id
+      title
+      description
+      price
     }
   }
 `;
@@ -46,24 +47,29 @@ export default class UpdateItem extends Component {
     this.setState({ [name]: val });
   };
 
+  updateItem = async (e, updateItemMutation) => {
+    e.preventDefault();
+    const res = await updateItemMutation({
+      variables: {
+        id: this.props.id,
+        ...this.state
+      }
+    });
+    console.log(res, "res");
+  };
+
   render() {
     return (
       <Query query={SINGLE_ITEM_QUERY} variables={{ id: this.props.id }}>
         {({ data, loading }) => {
           if (loading) return <p>Loading...</p>;
+          if (!data.item) return <p>No item found for ID {this.props.id}</p>;
           return (
             <Mutation mutation={UPDATE_ITEM_MUTATION} variables={this.state}>
-              {(createItem, { loading, error }) => (
+              {(updateItem, { loading, error }) => (
                 <Form
-                  onSubmit={async e => {
-                    e.preventDefault();
-                    const res = await createItem();
-                    Router.push({
-                      pathname: "/item",
-                      query: {
-                        id: res.data.createItem.id
-                      }
-                    });
+                  onSubmit={e => {
+                    this.updateItem(e, updateItem);
                   }}
                 >
                   <Error error={error} />
