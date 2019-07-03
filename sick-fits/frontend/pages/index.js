@@ -1,9 +1,8 @@
-import Link from "next/link";
-
+import Items from "../components/Items";
 export default function Home() {
   return (
     <div>
-      <p>hey</p>
+      <Items />
     </div>
   );
 }

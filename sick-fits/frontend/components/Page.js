@@ -11,7 +11,7 @@ const StyledPage = styled.div`
 
 const InnerPage = styled.div`
   max-width: ${props => props.theme.maxWidth};
-  background: ${props => props.theme.red};
+  background: #fff;
   margin: 0 auto;
   padding: 2rem;
 `;

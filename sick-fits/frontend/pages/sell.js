@@ -1,3 +1,5 @@
+import CreateItem from "../components/CreateItem";
+
 export default function sell() {
-  return <div>sell</div>;
+  return <CreateItem />;
 }
