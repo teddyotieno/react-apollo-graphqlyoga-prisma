@@ -1,5 +1,6 @@
 import React from "react";
+import SingleItem from "../components/SingleItem";
 
 export default function item(props) {
-  return <p>Item Page</p>;
+  return <SingleItem id={props.query.id} />;
 }
